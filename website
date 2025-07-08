@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roman Empire - Art & Architecture</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #2D1B69 0%, #8B3A9C 50%, #E91E63 100%);
+            color: #f4f4f4;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 69, 0, 0.1) 0%, transparent 50%);
+            animation: bgFloat 20s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes bgFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(1deg); }
+        }
+
+        /* Header */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4));
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: bold;
+            text-shadow: 4px 4px 8px rgba(0,0,0,0.8);
+            animation: titleGlow 3s ease-in-out infinite alternate;
+            margin-bottom: 20px;
+        }
+
+        @keyframes titleGlow {
+            from { text-shadow: 4px 4px 8px rgba(0,0,0,0.8), 0 0 20px rgba(255,215,0,0.3); }
+            to { text-shadow: 4px 4px 8px rgba(0,0,0,0.8), 0 0 40px rgba(255,215,0,0.6); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            animation: fadeInUp 2s ease-out 0.5s both;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 0.9; transform: translateY(0); }
+        }
+
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 215, 0, 0.6);
+            border-radius: 50%;
+            animation: float 15s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            z-index: 1000;
+            transform: translateY(-100%);
+            animation: slideDown 1s ease-out 1s both;
+        }
+
+        @keyframes slideDown {
+            to { transform: translateY(0); }
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .nav-link {
+            color: #f4f4f4;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .nav-link:hover::before {
+            left: 100%;
+        }
+
+        .nav-link:hover {
+            color: #FFD700;
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        main {
+            padding: 50px 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Section Styles */
+        .section {
+            margin: 100px 0;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: revealSection 1s ease-out both;
+        }
+
+        @keyframes revealSection {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            color: #FFD700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #FFD700, transparent);
+            animation: expandLine 2s ease-out;
+        }
+
+        @keyframes expandLine {
+            from { width: 0; }
+            to { width: 100px; }
+        }
+
+        /* Card Styles */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .card {
+            background: rgba(0,0,0,0.7);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,215,0,0.3);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+            opacity: 0;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+            transform: rotate(45deg) scale(1.2);
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #FFD700;
+            box-shadow: 0 20px 40px rgba(255,215,0,0.2);
+        }
+
+        .card h3 {
+            font-size: 1.8rem;
+            color: #FFD700;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card p {
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card ul {
+            margin: 15px 0;
+            padding-left: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card li {
+            margin: 8px 0;
+            position: relative;
+        }
+
+        .card li::marker {
+            color: #FFD700;
+        }
+
+        /* Architecture Section */
+        .architecture-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .building-card {
+            background: rgba(0,0,0,0.8);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .building-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.1), transparent);
+            transition: left 0.8s ease;
+        }
+
+        .building-card:hover::after {
+            left: 100%;
+        }
+
+        .building-card:hover {
+            transform: rotateY(5deg) scale(1.05);
+            box-shadow: 0 25px 50px rgba(255,215,0,0.3);
+        }
+
+        .building-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Interactive Elements */
+        .interactive-timeline {
+            margin: 50px 0;
+            position: relative;
+        }
+
+        .timeline-item {
+            background: rgba(0,0,0,0.7);
+            margin: 20px 0;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #FFD700;
+            transform: translateX(-50px);
+            opacity: 0;
+            animation: slideInLeft 1s ease-out both;
+        }
+
+        .timeline-item:nth-child(even) {
+            transform: translateX(50px);
+            animation: slideInRight 1s ease-out both;
+        }
+
+        @keyframes slideInLeft {
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideInRight {
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .timeline-item h4 {
+            color: #FFD700;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0,0,0,0.9);
+            padding: 50px 0;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-title {
+            font-size: 2rem;
+            color: #FFD700;
+            margin-bottom: 20px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px rgba(255,215,0,0.5); }
+            to { text-shadow: 0 0 20px rgba(255,215,0,0.8); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .hero-subtitle { font-size: 1.2rem; }
+            .section-title { font-size: 2rem; }
+            .nav-container { flex-direction: column; gap: 20px; }
+            .cards-grid { grid-template-columns: 1fr; }
+            .architecture-showcase { grid-template-columns: 1fr; }
+        }
+
+        /* Scroll animations */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .scroll-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    
+    <!-- Floating Particles -->
+    <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="particle" style="left: 20%; animation-delay: 2s;"></div>
+    <div class="particle" style="left: 30%; animation-delay: 4s;"></div>
+    <div class="particle" style="left: 40%; animation-delay: 6s;"></div>
+    <div class="particle" style="left: 50%; animation-delay: 8s;"></div>
+    <div class="particle" style="left: 60%; animation-delay: 10s;"></div>
+    <div class="particle" style="left: 70%; animation-delay: 12s;"></div>
+    <div class="particle" style="left: 80%; animation-delay: 14s;"></div>
+    <div class="particle" style="left: 90%; animation-delay: 16s;"></div>
+
+    <nav>
+        <div class="nav-container">
+            <a href="#painting" class="nav-link">Painting</a>
+            <a href="#sculpture" class="nav-link">Sculpture</a>
+            <a href="#architecture" class="nav-link">Architecture</a>
+            <a href="#legacy" class="nav-link">Legacy</a>
+        </div>
+    </nav>
+
+    <header>
+        <h1 class="hero-title">ROMAN EMPIRE</h1>
+        <p class="hero-subtitle">Art, Architecture & Eternal Legacy</p>
+    </header>
+
+    <main>
+        <div class="container">
+            <section id="overview" class="section">
+                <h2 class="section-title">Roman Art Overview</h2>
+                <div class="cards-grid">
+                    <div class="card">
+                        <h3>Progressive Innovation</h3>
+                        <p>Roman art was <strong>progressive</strong> and more diverse than Greek art, serving as a source of artistic creativity that inspired modern attitudes in art. Unlike conservative Greek styles, Roman works emphasized variety and practical application.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Practical Application</h3>
+                        <p>Roman artists focused on <strong>public and architectural art</strong>, creating works that served both aesthetic and functional purposes in daily Roman life.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Cultural Foundation</h3>
+                        <p>Roman art merged Greek influence with Roman pragmatism and grandeur, paving the way for later Western art traditions that continue to influence us today.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="painting" class="section scroll-animate">
+                <h2 class="section-title">🎨 Roman Painting</h2>
+                <div class="cards-grid">
+                    <div class="card">
+                        <h3>Fresco Techniques</h3>
+                        <p>Roman painters mastered <strong>fresco techniques</strong> with brightly colored backgrounds, creating stunning wall decorations that have survived millennia.</p>
+                        <ul>
+                            <li>Multi-point perspective</li>
+                            <li>Trompe-l'œil (realistic illusion) effects</li>
+                            <li>Innovative landscape painting</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>Diverse Subjects</h3>
+                        <p>Roman paintings featured an incredible variety of subjects:</p>
+                        <ul>
+                            <li>Mythological scenes</li>
+                            <li>Animals and nature</li>
+                            <li>Portraits and everyday life</li>
+                            <li>Still life compositions</li>
+                            <li>Breathtaking landscapes</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>Famous Examples</h3>
+                        <p>Masterpieces that defined Roman painting:</p>
+                        <ul>
+                            <li><strong>Villa of Mysteries, Pompeii (80 BC)</strong> - Ceremonial rites</li>
+                            <li><strong>Boscotrecase fresco</strong> - Decorative naturalism</li>
+                            <li><strong>Alexander vs. Darius III Mosaic</strong> - House of Faun, Pompeii</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sculpture" class="section scroll-animate">
+                <h2 class="section-title">🗿 Roman Sculpture</h2>
+                <div class="cards-grid">
+                    <div class="card">
+                        <h3>Materials & Techniques</h3>
+                        <p>Roman sculptors primarily worked with <strong>terracotta and marble</strong>, focusing on realistic reliefs and narrative storytelling.</p>
+                        <ul>
+                            <li>Realistic relief sculptures</li>
+                            <li>Public storytelling emphasis</li>
+                            <li>Military victory commemorations</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>Portonacio Sarcophagus</h3>
+                        <p><strong>(180–190 BCE)</strong></p>
+                        <p>This masterpiece depicts epic battles between Romans and Germans, created to honor a Roman general's military achievements.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Themes & Purposes</h3>
+                        <p>Roman sculpture served multiple purposes:</p>
+                        <ul>
+                            <li>Historical event documentation</li>
+                            <li>Mythological storytelling</li>
+                            <li>Commemorative portraits</li>
+                            <li>Mortuary and funerary art</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="architecture" class="section scroll-animate">
+                <h2 class="section-title">🏛️ Roman Architecture</h2>
+                <div class="architecture-showcase">
+                    <div class="building-card">
+                        <div class="building-icon">🏟️</div>
+                        <h3>The Colosseum</h3>
+                        <p><strong>(70–82 AD)</strong></p>
+                        <p>A massive arena for public games and entertainment, showcasing Roman engineering prowess with its innovative use of arches and concrete.</p>
+                    </div>
+                    <div class="building-card">
+                        <div class="building-icon">⛩️</div>
+                        <h3>Triumphal Arches</h3>
+                        <p>Monumental structures that showcased military success and civic pride, featuring detailed reliefs celebrating Roman victories.</p>
+                    </div>
+                </div>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <h3>Engineering Innovations</h3>
+                        <p>Romans revolutionized construction with:</p>
+                        <ul>
+                            <li><strong>Gigantic arches</strong> and barrel vaults</li>
+                            <li>Advanced use of <strong>concrete</strong></li>
+                            <li>Durable stone and brick construction</li>
+                            <li>Innovative dome structures</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>Imperial Power</h3>
+                        <p>Roman architecture reflected <strong>imperial power and public utility</strong>, creating structures that served both practical and symbolic purposes.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Lasting Influence</h3>
+                        <p>Roman architectural principles became foundational in Western architecture, inspiring <strong>Romanesque and Byzantine</strong> styles that followed.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="legacy" class="section scroll-animate">
+                <h2 class="section-title">🌟 Eternal Legacy</h2>
+                <div class="interactive-timeline">
+                    <div class="timeline-item">
+                        <h4>Painting Revolution</h4>
+                        <p>Introduced realism and perspective, enhanced wall and interior decoration techniques that influenced Renaissance masters.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Sculptural Storytelling</h4>
+                        <p>Prioritized narrative through high-relief and funerary works, creating the foundation for commemorative art.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Architectural Innovation</h4>
+                        <p>Combined aesthetics with functionality, engineering for grandeur and public life that still influences modern construction.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Artistic Philosophy</h4>
+                        <p>Merged Greek influence with Roman pragmatism, creating a template for Western art traditions that endures today.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <h3 class="footer-title">Roman Empire - Eternal Influence</h3>
+            <p>From the ancient forums to modern museums, Roman art continues to inspire and captivate. Their progressive approach to creativity, combined with masterful technical skill, created a legacy that transcends time.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll animation observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-animate').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add dynamic particles
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 25000);
+        }
+
+        // Create new particles periodically
+        setInterval(createParticle, 3000);
+
+        // Enhanced card hover effects
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02) rotateX(5deg)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1) rotateX(0deg)';
+            });
+        });
+
+        // Parallax effect for background
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.bg-animation');
+            const speed = scrolled * 0.5;
+            parallax.style.transform = `translateY(${speed}px)`;
+        });
+
+        // Dynamic title animation
+        const heroTitle = document.querySelector('.hero-title');
+        const letters = heroTitle.textContent.split('');
+        heroTitle.textContent = '';
+        
+        letters.forEach((letter, index) => {
+            const span = document.createElement('span');
+            span.textContent = letter === ' ' ? '\u00A0' : letter;
+            span.style.animationDelay = `${index * 0.1}s`;
+            span.style.display = 'inline-block';
+            span.style.animation = 'letterDrop 0.5s ease-out both';
+            heroTitle.appendChild(span);
+        });
+
+        // Add letter drop animation
+        const letterDropKeyframes = `
+            @keyframes letterDrop {
+                from { transform: translateY(-50px); opacity: 0; }
+                to { transform: translateY(0); opacity: 1; }
+            }
+        `;
+        
+        const style = document.createElement('style');
+        style.textContent = letterDropKeyframes;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
